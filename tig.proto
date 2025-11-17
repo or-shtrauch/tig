@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+message commit
+{
+    optional uint64 hash = 1;
+}
+
+message tig
+{
+    repeated commit commits = 1;
+}
