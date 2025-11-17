@@ -34,4 +34,17 @@ void    __heap_destroy(heap_t *heap);
         heap = NULL;                                                           \
     } while (0)
 
+static inline void __local_heap_cleanup(void *_p)
+{
+    void **p = (void **)_p;
+    if (p && *p) {
+        free_fn(*p);
+        *p = NULL;
+    }
+}
+
+#define CLEANUP(f) __attribute__((cleanup(f)))
+#define DECLARE_LOCAL_HEAP(name)                                               \
+    heap_t CLEANUP(__local_heap_cleanup) *name = heap_init()
+
 #endif // __HEAP_H__

@@ -23,10 +23,10 @@ static uint64_t generate_commit_hash()
 
 int main(int argc, char **argv)
 {
+    DECLARE_LOCAL_HEAP(heap);
+
     (void)argc;
     (void)argv;
-
-    heap_t *heap = heap_init();
 
     Tig *t = heap_alloc_object(heap, Tig);
 
@@ -73,6 +73,5 @@ int main(int argc, char **argv)
         printf("commit hash: %" PRIu64 "\n", a->commits[i]->hash);
     }
 
-    heap_destroy(heap);
     return 0;
 }
